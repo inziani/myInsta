@@ -5,4 +5,4 @@ from django.db import models
 # Create your models here.
 
 class CustomUser(AbstractUser):
-  age 
+  age = models.PositiveIntegerField(null=True, blank=True) 
