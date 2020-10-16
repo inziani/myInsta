@@ -38,7 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'users.apps.UsersConfig',
+    'crispy_forms',
+    'bootstrap4',
 ]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -80,7 +83,6 @@ DATABASES = {
         'NAME': 'myInsta',
         'USER': 'ValentineRobai',
         'PASSWORD': 'Sopp0711!',
-
     }
 }
 
