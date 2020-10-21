@@ -1,0 +1,11 @@
+h1{
+  color: red;
+}
+
+body{
+  background-image: url(/static/images/database_login.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100vh;
+  position: relative;
+}
