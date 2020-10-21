@@ -2,11 +2,13 @@
   <a class="navbar-brand text-warning" href="{% url 'home' %}">myInsta</a><button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarCollapse">
+  <div class="collapse navbar-collapse text-warning" id="navbarCollapse">
     {% if user.is_authenticated %} 
+   <a class="text-warning" href="{% url 'post_new' %}">+ New Post</a> |
+   <a class="text-warning" href="{% url 'post_list' %}">All Posts</a>
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <a class="nav-link dropdown-toggle" href="#" id="userMenu"
+        <a class="nav-link dropdown-toggle text-warning" href="#" id="userMenu"
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         {{ user.username }}
         </a>

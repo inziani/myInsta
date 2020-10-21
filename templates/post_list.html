@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+{% for post in object_list %}
+<div class="container">
+  <img src="{{ post.picture.url }}" alt="#" width=200, height=200>
+  <p><em>{{ post.date }}</em><br>{{ post.title }}<br>{{ post.body }}<br>{{ post.body }}</p>
+</div>
+
+  <a href="{% url 'post_edit' post.pk %}">Edit</a> | <a href="{% url 'post_delete' post.pk %}">Delete</a>
+{% endfor %}
+{% endblock content %}
+
