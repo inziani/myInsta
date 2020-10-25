@@ -10,7 +10,7 @@
 <hr>
 <form action="{% url 'like_post' post.pk %}" method="POST">
   {% csrf_token %}
-  <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-warning btn-sm" >Like</button> - {{ total_likes }} Likes
+  <button type="submit" name="post_id" value="{{ post.id }}" class="btn btn-warning btn-sm" >Like</button> - {{ post.likes.all.count }} Likes
 </form>
 <hr>
 <h4>Comments..</h4>
@@ -27,7 +27,6 @@ No coments yet...<br>
   <a href="{% url 'post_edit' post.pk %}">Edit</a> | <a href="{% url 'post_delete' post.pk %}">Delete</a>|
   <a href="{% url 'comment' post.pk %}">Add comment..</a><br><br><br>
   <hr>
-
 
 
 {% endfor %}

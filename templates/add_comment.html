@@ -4,8 +4,9 @@
 {% block title %}Add Comment{% endblock title %}
 
 {% block content %}
-<form action="{% url 'comment' post.pk %}" method="POST">
+<form action="{% url 'comment' pk=post.pk %}" method="POST">
   {% csrf_token %}
+  {{post.id}}
   {{ form|crispy }}
   <input type="submit" value="Post comment" class="btn btn-danger btn-sm">
 </form>

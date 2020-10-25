@@ -15,7 +15,9 @@ from .models import Post, Comment
 
 def LikeView(request, pk):
   post = get_object_or_404(Post, id = request.POST.get('post_id'))
+  
   post.likes.add(request.user)
+  print(post.likes.all().count()) 
   return HttpResponseRedirect(reverse('post_list'))
 
 
@@ -76,7 +78,7 @@ class CommentCreateView(LoginRequiredMixin, CreateView):
   fields = ('comment',)
   login_url = 'login'
 
-  def form_valid(self, form):
+  def form_valid(self, form,**kwargs):
     form.instance.author = self.request.user
     form.instance.post_id = Post.objects.get(pk=self.kwargs.get(['pk']))
     return super().form_valid(form)
