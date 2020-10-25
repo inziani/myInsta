@@ -6,3 +6,4 @@ from django.db import models
 
 class CustomUser(AbstractUser):
   age = models.PositiveIntegerField(null=True, blank=True) 
+  # date_joined = models.DateTimeField(default=timezone.now)
