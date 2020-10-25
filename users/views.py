@@ -4,6 +4,7 @@ from django.views.generic import CreateView
 from django.views.generic.edit import UpdateView, DeleteView
 
 from .forms import CustomUserCreationForm, CustomUserChangeForm
+from posts.models import UserProfile
 
 # Create your views here.
 
@@ -13,8 +14,10 @@ class SignUpView(CreateView):
   template_name = 'signup.html'
 
 class UserEditView(UpdateView):
-  form_class = CustomUserChangeForm
+  model = UserProfile
+  # form_class = CustomUserChangeForm
   success_url = reverse_lazy('home')
+  fields = ('bio', 'profile_picture','website_url', 'twitter_url', 'facebook_url')
   template_name = 'edit_profile.html'
 
   def get_object(self):
