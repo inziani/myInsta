@@ -4,7 +4,10 @@ from django.views.generic import ListView, DetailView
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy, reverse
 from django.http import HttpResponseRedirect
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, login, logout
+from django.contrib.auth.decorators import login_required
+from django import forms
+from django.shortcuts import redirect
 
 
 from .models import Post, Comment
@@ -25,7 +28,6 @@ class PostListView(LoginRequiredMixin, ListView):
   model = Post
   template_name = 'post_list.html'
   login_url = 'login'
-
 
 
 class PostDetailView(LoginRequiredMixin, DetailView):
@@ -72,19 +74,38 @@ class PostCreateView(LoginRequiredMixin, CreateView):
 
     # =========================================
 
-class CommentCreateView(LoginRequiredMixin, CreateView): 
-  model = Comment
-  template_name = 'add_comment.html' 
-  fields = ('comment',)
-  login_url = 'login'
+# class CommentCreateView(LoginRequiredMixin, CreateView): 
+#   model = Comment
+#   template_name = 'add_comment.html' 
+#   fields = ('comment',)
+#   login_url = 'login'
 
-  def form_valid(self, form,**kwargs):
-    form.instance.author = self.request.user
-    form.instance.post_id = Post.objects.get(pk=self.kwargs.get(['pk']))
-    return super().form_valid(form)
+#   def form_valid(self, form,**kwargs):
+#     form.instance.author = self.request.user
+#     form.instance.post_id = Post.objects.get(pk=self.kwargs.get(['pk']))
+#     return super().form_valid(form)
 
 
 # ****************************************   
+
+class CommentForm(forms.ModelForm):
+  class Meta:
+    model = Comment
+    fields = ('comment', 'author')
+
+@login_required
+def add_comment(request, pk):
+  post = get_object_or_404(Post, pk=pk)
+  if request.method == 'POST':
+    form = CommentForm(request.POST)
+    if form.is_valid():
+      comment = form.save(commit = False)
+      comment.post = post
+      comment.save()
+      return redirect ('post_detail', pk=post.pk)
+  else:
+    form = CommentForm()
+  return render(request, 'add_comment.html', {'form': form})
 
 
 

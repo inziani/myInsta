@@ -4,7 +4,7 @@
 {% block title %}Add Comment{% endblock title %}
 
 {% block content %}
-<form action="{% url 'comment' pk=post.pk %}" method="POST">
+<form method="POST">
   {% csrf_token %}
   {{post.id}}
   {{ form|crispy }}
